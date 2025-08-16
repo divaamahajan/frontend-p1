@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Navbar from './components/Navbar';
-import Home from "./components/Home";
-import Chat from "./components/chatbot/ChatWindow";
-import QA from "./components/QAchatbot/QAChatWindow";
-import Filehandler from "./components/filehandler/Filehandler";
+
+import VisualMemorySearch from "./components/VisualMemorySearch";
 import LoginView from './components/login/LoginView';
 import ProfileView from './components/login/ProfileView';
 
@@ -31,24 +29,23 @@ function App() {
       <Navbar user={user} onLogout={handleLogout} />
 
       <Routes>
-        <Route path="/" element={<Home user={user} />} />
-        <Route path="/home" element={<Home user={user} />} />
+        <Route path="/" element={<Navigate to="/visual-memory" replace />} />
+        <Route path="/home" element={<Navigate to="/visual-memory" replace />} />
 
         <Route
           path="/login"
-          element={!user ? <LoginView onLoginSuccess={handleLoginSuccess} /> : <Navigate to="/home" replace />}
+          element={!user ? <LoginView onLoginSuccess={handleLoginSuccess} /> : <Navigate to="/visual-memory" replace />}
         />
 
-        <Route path="/chat" element={<Chat user={user} />} />
-        <Route path="/qa" element={<QA user={user} token={localStorage.getItem("token")} />} />
-        <Route path="/filehandler" element={<Filehandler user={user} token={localStorage.getItem("token")} />} />
+
+        <Route path="/visual-memory" element={<VisualMemorySearch />} />
 
         <Route
           path="/profile"
           element={user ? <ProfileView user={user} /> : <Navigate to="/login" replace />}
         />
 
-        <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="*" element={<Navigate to="/visual-memory" replace />} />
       </Routes>
     </Router>
   );

@@ -19,53 +19,23 @@ function Navbar({ user, onLogout }) {
     <nav style={styles.navbar}>
       <div style={styles.container}>
         <div style={styles.brand}>
-          <Link to="/home" style={styles.brandLink}>
-            <span style={styles.brandIcon}>⚡</span>
-            ProductivePro
+          <Link to="/visual-memory" style={styles.brandLink}>
+            <span style={styles.brandIcon}>🖼️</span>
+            Visual Memory Search
           </Link>
         </div>
 
         <div style={styles.navLinks}>
           <Link 
-            to="/home" 
+            to="/visual-memory" 
             style={{
               ...styles.navLink,
-              ...(isActive('/home') ? styles.activeLink : {})
+              ...(isActive('/visual-memory') ? styles.activeLink : {})
             }}
           >
-            Home
+            Dashboard
           </Link>
           
-          <Link 
-            to="/chat" 
-            style={{
-              ...styles.navLink,
-              ...(isActive('/chat') ? styles.activeLink : {})
-            }}
-          >
-            Chat
-          </Link>
-          
-          <Link 
-            to="/qa" 
-            style={{
-              ...styles.navLink,
-              ...(isActive('/qa') ? styles.activeLink : {})
-            }}
-          >
-            Q&A
-          </Link>
-          
-          <Link 
-            to="/filehandler" 
-            style={{
-              ...styles.navLink,
-              ...(isActive('/filehandler') ? styles.activeLink : {})
-            }}
-          >
-            Files
-          </Link>
-
           {user && (
             <Link 
               to="/profile" 
