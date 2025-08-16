@@ -18,8 +18,7 @@ const VisualMemorySearch = () => {
   const [isMigrating, setIsMigrating] = useState(false); // For migration state
   const [searchFilters, setSearchFilters] = useState({
     minConfidence: 0.0,
-    maxResults: 10,
-    sortBy: 'relevance' // 'relevance', 'date', 'filename'
+    sortBy: 'relevance' // 'relevance', 'date', 'filename', 'confidence'
   });
   const [searchSuggestions, setSearchSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
@@ -176,7 +175,7 @@ const VisualMemorySearch = () => {
       const response = await axios.post('/visual-memory/enhanced-search', 
         { 
           text: searchQuery, 
-          max_results: searchFilters.maxResults 
+          max_results: 5 // Backend now always returns 5 results
         },
         {
           headers: {
@@ -796,20 +795,6 @@ const VisualMemorySearch = () => {
               </div>
               
               <div className="flex items-center space-x-2">
-                <label className="text-sm font-medium text-gray-700">Max Results:</label>
-                <select
-                  value={searchFilters.maxResults}
-                  onChange={(e) => handleFilterChange('maxResults', parseInt(e.target.value))}
-                  className="px-3 py-1 border border-gray-300 rounded-md text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                >
-                  <option value={5}>5</option>
-                  <option value={10}>10</option>
-                  <option value={15}>15</option>
-                  <option value={20}>20</option>
-                </select>
-              </div>
-              
-              <div className="flex items-center space-x-2">
                 <label className="text-sm font-medium text-gray-700">Sort By:</label>
                 <select
                   value={searchFilters.sortBy}
@@ -854,9 +839,10 @@ const VisualMemorySearch = () => {
           {/* Results Summary */}
           <div className="mb-4 p-3 bg-blue-50 rounded-lg">
             <div className="flex items-center space-x-4 text-sm text-blue-800">
-              <span>📊 Showing {searchResults.length} results</span>
+              <span>📊 Showing top 5 most relevant results</span>
               <span>🎯 Sorted by: {searchFilters.sortBy}</span>
               <span>🔍 Query: "{searchQuery}"</span>
+              <span>✨ AI-powered relevance scoring</span>
             </div>
           </div>
           
